@@ -1,12 +1,14 @@
 import socket
 import json
 from flask import Flask, request, jsonify, render_template
+from config import RELAY_CONTROLLER_PORT, RELAY_CONTROLLER_IP
+from config import FLASK_SERVER_PORT, FLASK_SERVER_IP
 
 app = Flask(__name__)
 
 def send_request_to_relay_controller(data):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        s.connect(("127.0.0.1", 65432))
+        s.connect((RELAY_CONTROLLER_IP, RELAY_CONTROLLER_PORT))
         s.sendall(json.dumps(data).encode())
         response = s.recv(1024).decode()
         return json.loads(response)
@@ -34,4 +36,4 @@ def handle_gpio():
         return jsonify({'status': 'error', 'message': response.get("message")}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host=FLASK_SERVER_IP, port=FLASK_SERVER_PORT, debug=True)
