@@ -76,6 +76,7 @@ def handle_client(client_socket):
             for gpio in gpios:
                 if gpio["num"] == gpio_num:
                     gpio["state"] = state
+                    GPIO.setup(gpio_num, GPIO.OUT)
                     # Set the GPIO output based on the state
                     if state == "ON":
                         GPIO.output(gpio_num, GPIO.HIGH)
