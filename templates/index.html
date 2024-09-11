@@ -145,8 +145,8 @@
     <div class="container">
         {% for gpio in gpios %}
         <div class="card">
-            <label for="gpio{{ gpio.num }}">gpio{{ gpio.num }}</label>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <label for="gpio{{ gpio.reley_num }}">reley #{{ gpio.reley_num }}</label>
+            <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
             <input type="checkbox" id="gpio{{ gpio.num }}" {% if gpio.state == 'ON' %}checked{% endif %}>
         </div>
         {% endfor %}

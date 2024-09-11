@@ -37,16 +37,12 @@ else:
 
 # List of GPIOs (initially without state)
 gpios = [
-    {"num": 1, "state": None},
-    {"num": 2, "state": None},
-    {"num": 3, "state": None},
-    {"num": 4, "state": None},
-    {"num": 5, "state": None},
-    {"num": 6, "state": None},
-    {"num": 7, "state": None},
-    {"num": 8, "state": None},
-    {"num": 9, "state": None},
-    {"num": 10, "state": None}
+    {"num": 5, "state": None, "reley_num": 1},
+    {"num": 6, "state": None, "reley_num": 2},
+    {"num": 13, "state": None, "reley_num": 3},
+    {"num": 16, "state": None, "reley_num": 4},
+    {"num": 19, "state": None, "reley_num": 5},
+    {"num": 20, "state": None, "reley_num": 6},
 ]
 
 # Set up the GPIO mode
