@@ -34,10 +34,14 @@ root@OpenWrt:~# git clone https://github.com/Vladddd46/smart_gpio.git
 root@OpenWrt:~# cd smart_gpio
 root@OpenWrt:~# chmod +x scripts/start_web_server.sh
 ~~~
-5. Add the script to autoload by inserting the following line to the end of boot() function:
+5. Add the script to autoload by inserting the following line before 'exit 0':
 ~~~
-root@OpenWrt:~# nano /etc/init.d/boot
-nohup /root/smart_gpio/start_web_server.sh > /dev/null 2>&1 &
+root@OpenWrt:~# nano /etc/rc.local
+nohup /root/smart_gpio/scripts/start_web_server.sh > /dev/null 2>&1 &
+~~~
+6. Reboot the device:
+~~~
+root@OpenWrt:~# reboot
 ~~~
 
 ### Raspberry Pi Zero W relay server
@@ -85,7 +89,7 @@ pi@raspberrypi:~ $ git clone https://github.com/Vladddd46/smart_gpio.git
 pi@raspberrypi:~ cd smart_gpio
 pi@raspberrypi:~ chmod +x scripts/start_relay_controller.sh
 ~~~
-7. Add the script to autoload by inserting the following line to the end of boot() function:
+7. Add the script to autoload by inserting the following line before 'exit 0':
 ~~~
 pi@raspberrypi:~ sudo nano /etc/rc.local
 nohup /home/pi/smart_gpio/scripts/start_relay_controller.sh > /dev/null 2>&1 &
