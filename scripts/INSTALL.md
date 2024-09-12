@@ -34,10 +34,22 @@ root@OpenWrt:~# git clone https://github.com/Vladddd46/smart_gpio.git
 root@OpenWrt:~# cd smart_gpio
 root@OpenWrt:~# chmod +x scripts/start_web_server.sh
 ~~~
-5. Add the script to autoload by inserting the following line to the end of boot() function:
+5. Add the script to autoload by inserting the following line before 'exit 0':
 ~~~
-root@OpenWrt:~# nano /etc/init.d/boot
-nohup /root/smart_gpio/start_web_server.sh > /dev/null 2>&1 &
+root@OpenWrt:~# nano /etc/rc.local
+nohup /root/smart_gpio/scripts/start_web_server.sh > /dev/null 2>&1 &
+~~~
+If you want to write logs, use the following line instead:
+~~~
+root@OpenWrt:~# nano /etc/rc.local
+mkdir -p /var/log/smart_gpio
+DATE=`date +%d-%m-%y-%T`
+nohup /root/smart_gpio/scripts/start_web_server.sh 2>&1  & tee -a /var/log/smart_gpio/start_web_server_${DATE}.log &
+~~~
+**WARNING:** Be careful using logs, you can use up all free disk space
+6. Reboot the device:
+~~~
+root@OpenWrt:~# reboot
 ~~~
 
 ### Raspberry Pi Zero W relay server
@@ -85,11 +97,19 @@ pi@raspberrypi:~ $ git clone https://github.com/Vladddd46/smart_gpio.git
 pi@raspberrypi:~ cd smart_gpio
 pi@raspberrypi:~ chmod +x scripts/start_relay_controller.sh
 ~~~
-7. Add the script to autoload by inserting the following line to the end of boot() function:
+7. Add the script to autoload by inserting the following line before 'exit 0':
 ~~~
 pi@raspberrypi:~ sudo nano /etc/rc.local
 nohup /home/pi/smart_gpio/scripts/start_relay_controller.sh > /dev/null 2>&1 &
 ~~~
+If you want to write logs, use the following line instead:
+~~~
+root@OpenWrt:~# nano /etc/rc.local
+mkdir -p /var/log/smart_gpio
+DATE=`date +%d-%m-%y-%T`
+nohup /home/pi/smart_gpio/scripts/start_relay_controller.sh 2>&1  & tee -a /var/log/smart_gpio/start_relay_controller_${DATE}.log &
+~~~
+**WARNING:** Be careful using logs, you can use up all free disk space
 8. Reboot the device:
 ~~~
 pi@raspberrypi:~ sudo reboot
