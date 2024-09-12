@@ -39,6 +39,14 @@ root@OpenWrt:~# chmod +x scripts/start_web_server.sh
 root@OpenWrt:~# nano /etc/rc.local
 nohup /root/smart_gpio/scripts/start_web_server.sh > /dev/null 2>&1 &
 ~~~
+If you want to write logs, use the following line instead:
+~~~
+root@OpenWrt:~# nano /etc/rc.local
+mkdir -p /var/log/smart_gpio
+DATE=`date +%d-%m-%y-%T`
+nohup /root/smart_gpio/scripts/start_web_server.sh 2>&1  & tee -a /var/log/smart_gpio/start_web_server_${DATE}.log &
+~~~
+**WARNING:** Be careful using logs, you can use up all free disk space
 6. Reboot the device:
 ~~~
 root@OpenWrt:~# reboot
@@ -94,6 +102,14 @@ pi@raspberrypi:~ chmod +x scripts/start_relay_controller.sh
 pi@raspberrypi:~ sudo nano /etc/rc.local
 nohup /home/pi/smart_gpio/scripts/start_relay_controller.sh > /dev/null 2>&1 &
 ~~~
+If you want to write logs, use the following line instead:
+~~~
+root@OpenWrt:~# nano /etc/rc.local
+mkdir -p /var/log/smart_gpio
+DATE=`date +%d-%m-%y-%T`
+nohup /home/pi/smart_gpio/scripts/start_relay_controller.sh 2>&1  & tee -a /var/log/smart_gpio/start_relay_controller_${DATE}.log &
+~~~
+**WARNING:** Be careful using logs, you can use up all free disk space
 8. Reboot the device:
 ~~~
 pi@raspberrypi:~ sudo reboot
